@@ -13,20 +13,35 @@ import com.model.Position;
 
 public class EmployeeDAO {
 	
-	public ArrayList<Employee> getAllEmployee(){
-        ArrayList<Employee> employeeList = new ArrayList<Employee>();
-        
-        try
+	public Connection getConnection() {
+		Connection con = null;
+		
+		try
         {
             String dbURL = "jdbc:mysql://localhost:3306/";
             String dbName = "testdb";
             String username = "tuvan";
             String password = "tuvan";
             String url = dbURL + dbName;
-            String sql = "select * from employee";
             Class.forName("com.mysql.jdbc.Driver");
 
-            Connection con = DriverManager.getConnection(url, username, password);
+            con = DriverManager.getConnection(url, username, password);
+        }
+        catch(ClassNotFoundException | SQLException e){
+            System.out.println(e);
+        }
+		
+		return con;
+	}
+	
+	public ArrayList<Employee> getAllEmployee(){
+        ArrayList<Employee> employeeList = new ArrayList<Employee>();
+        
+        try
+        {
+            String sql = "select * from employee";
+
+            Connection con = getConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
@@ -49,7 +64,7 @@ public class EmployeeDAO {
             st.close();
             con.close();
         }
-        catch(ClassNotFoundException | SQLException e){
+        catch(SQLException e){
             System.out.println(e);
         }
         
@@ -61,15 +76,9 @@ public class EmployeeDAO {
 		
 		try
         {
-            String dbURL = "jdbc:mysql://localhost:3306/";
-            String dbName = "testdb";
-            String username = "tuvan";
-            String password = "tuvan";
-            String url = dbURL + dbName;
             String sql = "select * from employee where employeeId="+"'"+employeeId+"'";
-            Class.forName("com.mysql.jdbc.Driver");
 
-            Connection con = DriverManager.getConnection(url, username, password);
+            Connection con = getConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
@@ -88,7 +97,7 @@ public class EmployeeDAO {
             st.close();
             con.close();
         }
-        catch(ClassNotFoundException | SQLException e){
+        catch(SQLException e){
             System.out.println(e);
         }
 		
@@ -98,14 +107,7 @@ public class EmployeeDAO {
 	public void addEmployee(Employee employee){
         try
         {
-            String dbURL = "jdbc:mysql://localhost:3306/";
-            String dbName = "testdb";
-            String username = "tuvan";
-            String password = "tuvan";
-            String url = dbURL + dbName;
-            Class.forName("com.mysql.jdbc.Driver");
-
-            Connection con = DriverManager.getConnection(url, username, password);
+            Connection con = getConnection();
             PreparedStatement st = con.prepareStatement("insert into employee values(?, ?, ?, ?, ?, ?, ?, ?)");
             
             st.setString(1, null);
@@ -122,7 +124,7 @@ public class EmployeeDAO {
             st.close();
             con.close();
         }
-        catch(ClassNotFoundException | SQLException e){
+        catch(SQLException e){
             System.out.println(e);
         }
     }
@@ -130,15 +132,9 @@ public class EmployeeDAO {
 	public void deleteEmployeeById(String employeeId) {
 		try
         {
-			String dbURL = "jdbc:mysql://localhost:3306/";
-            String dbName = "testdb";
-            String username = "tuvan";
-            String password = "tuvan";
-            String url = dbURL + dbName;
             String sql = "delete from employee where employeeId="+"'"+employeeId+"'";
-            Class.forName("com.mysql.jdbc.Driver");
-
-            Connection con = DriverManager.getConnection(url, username, password);
+            
+            Connection con = getConnection();
             Statement st = con.createStatement();
             
             st.execute(sql);
@@ -146,7 +142,7 @@ public class EmployeeDAO {
             st.close();
             con.close();
         }
-        catch(ClassNotFoundException | SQLException e){
+        catch(SQLException e){
             System.out.println(e);
         }
 	}
@@ -154,14 +150,7 @@ public class EmployeeDAO {
 	public void updateEmployee(Employee employee) {
 		try
         {
-            String dbURL = "jdbc:mysql://localhost:3306/";
-            String dbName = "testdb";
-            String username = "tuvan";
-            String password = "tuvan";
-            String url = dbURL + dbName;
-            Class.forName("com.mysql.jdbc.Driver");
-
-            Connection con = DriverManager.getConnection(url, username, password);
+            Connection con = getConnection();
             PreparedStatement st = con.prepareStatement("UPDATE employee SET firstName=?, lastName=?, phone=?, email=?, dateOfBirth=?, position=? WHERE employeeId=?");
             
             st.setString(1, employee.getFirstName());
@@ -177,7 +166,7 @@ public class EmployeeDAO {
             st.close();
             con.close();
         }
-        catch(ClassNotFoundException | SQLException e){
+        catch(SQLException e){
             System.out.println(e);
         }
 	}
