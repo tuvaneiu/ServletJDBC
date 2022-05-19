@@ -13,10 +13,9 @@ public class Employee {
     private Date dateOfBirth;
     private Position position;
     
-	public Employee(int id, String employeeId, String firstName, String lastName, String phone, String email,
+	public Employee(String employeeId, String firstName, String lastName, String phone, String email,
 			Date dateOfBirth, Position position) {
 		super();
-		this.id = id;
 		this.employeeId = employeeId;
 		this.firstName = firstName;
 		this.lastName = lastName;

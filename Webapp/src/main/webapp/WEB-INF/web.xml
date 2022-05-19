@@ -19,9 +19,35 @@
       <servlet-name>ShowAllEmployeeServlet</servlet-name>
       <servlet-class>com.servlets.ShowAllEmployeeServlet</servlet-class>
   </servlet>
-  
   <servlet-mapping>
       <servlet-name>ShowAllEmployeeServlet</servlet-name>
       <url-pattern>/ShowAllEmployeeServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+      <servlet-name>AddEmployeeServlet</servlet-name>
+      <servlet-class>com.servlets.AddEmployeeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>AddEmployeeServlet</servlet-name>
+      <url-pattern>/AddEmployeeServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+      <servlet-name>DeleteEmployeeServlet</servlet-name>
+      <servlet-class>com.servlets.DeleteEmployeeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>DeleteEmployeeServlet</servlet-name>
+      <url-pattern>/DeleteEmployeeServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+      <servlet-name>UpdateEmployeeServlet</servlet-name>
+      <servlet-class>com.servlets.UpdateEmployeeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>UpdateEmployeeServlet</servlet-name>
+      <url-pattern>/UpdateEmployeeServlet</url-pattern>
   </servlet-mapping>
 </web-app>

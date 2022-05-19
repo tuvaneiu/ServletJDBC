@@ -16,7 +16,7 @@ import com.model.Employee;
 import com.model.Position;
 
 @SuppressWarnings("serial")
-public class AddEmployeeServlet extends HttpServlet {
+public class UpdateEmployeeServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
@@ -32,26 +32,18 @@ public class AddEmployeeServlet extends HttpServlet {
             Position position = Position.valueOf(request.getParameter("position"));
             
             EmployeeDAO employeeDAO = new EmployeeDAO();
-            Employee checkEmployeeExist = employeeDAO.getEmployeeById(employee_id);
             
-            if(checkEmployeeExist.getEmployeeId() != null) {
-            	out.println("<div class=\"invalidId\">Please enter another ID!</div>");
-            	
-            	RequestDispatcher rd = request.getRequestDispatcher("addEmployee.jsp");
-                rd.include(request, response);
-            }else {
-            	Employee employee = new Employee(employee_id, fname, lname, phone, email, dob, position);
-                
-                employeeDAO.addEmployee(employee);
-                
-                ArrayList<Employee> employeeList = new ArrayList<>();
-    			employeeList = employeeDAO.getAllEmployee();
-    			
-    			request.setAttribute("employeeList", employeeList);
-                
-                RequestDispatcher rd = request.getRequestDispatcher("showAllEmployee.jsp");
-                rd.forward(request, response);
-            }
+            Employee employee = new Employee(employee_id, fname, lname, phone, email, dob, position);
+            
+            employeeDAO.updateEmployee(employee);
+            
+            ArrayList<Employee> employeeList = new ArrayList<>();
+			employeeList = employeeDAO.getAllEmployee();
+			
+			request.setAttribute("employeeList", employeeList);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("showAllEmployee.jsp");
+            rd.forward(request, response);
             
         } catch (IOException e) {
         }

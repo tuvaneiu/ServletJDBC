@@ -21,11 +21,21 @@
 			<p>Phone: <%=employee.getPhone()%></p>
 			<p>Email: <%=employee.getEmail()%></p>
 			<p>Date of birth: <%=employee.getDateOfBirth()%></p>
+			<p>Position: <%=employee.getPosition()%></p>
 			<br>
-			<a href="DeleteEmployeeServlet?id=<%=employee.getId()%>">Delete</a>
-			<a href="UpdateEmployeeServlet?id=<%=employee.getId()%>">Update</a>
+			<a href="DeleteEmployeeServlet?employeeId=<%=employee.getEmployeeId()%>" onclick="return confirmFunction()">Delete</a>
+			<a href="updateEmployee.jsp?employeeId=<%=employee.getEmployeeId()%>">Update</a>
 		<%
 		}
 	%>
+	<hr>
+	<a href="index.jsp">Return to home page</a>
+	
+	<script type="text/javascript">
+	    function confirmFunction () {
+	    	return confirm("Are you sure to delete this employee?");
+	    }
+	</script>
+	
 </body>
 </html>

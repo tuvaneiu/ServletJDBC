@@ -15,24 +15,29 @@ import com.model.Employee;
 
 
 @SuppressWarnings("serial")
-public class ShowAllEmployeeServlet extends HttpServlet {
-
+public class DeleteEmployeeServlet extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		
 		try (PrintWriter out = response.getWriter()){
             
-			ArrayList<Employee> employeeList = new ArrayList<>();
+			String id = request.getParameter("employeeId");
+			
 			EmployeeDAO employeeDAO = new EmployeeDAO();
 			
+			employeeDAO.deleteEmployeeById(id);
+			
+			ArrayList<Employee> employeeList = new ArrayList<>();
 			employeeList = employeeDAO.getAllEmployee();
 			
 			request.setAttribute("employeeList", employeeList);
-            
-            RequestDispatcher rd = request.getRequestDispatcher("showAllEmployee.jsp");
-            rd.forward(request, response);
+	        
+	        RequestDispatcher rd = request.getRequestDispatcher("showAllEmployee.jsp");
+	        rd.forward(request, response);
             
         } catch (IOException e) {
         }
 	}
+
 }
