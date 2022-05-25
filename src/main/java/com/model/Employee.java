@@ -12,9 +12,23 @@ public class Employee {
     private String email;
     private Date dateOfBirth;
     private Position position;
+	private Salary salary;
     
 	public Employee(String employeeId, String firstName, String lastName, String phone, String email,
-			Date dateOfBirth, Position position) {
+			Date dateOfBirth, Position position, Salary salary) {
+		super();
+		this.employeeId = employeeId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phone = phone;
+		this.email = email;
+		this.dateOfBirth = dateOfBirth;
+		this.position = position;
+		this.salary = salary;
+	}
+
+	public Employee(String employeeId, String firstName, String lastName, String phone, String email,
+					Date dateOfBirth, Position position) {
 		super();
 		this.employeeId = employeeId;
 		this.firstName = firstName;
@@ -93,11 +107,26 @@ public class Employee {
 		this.position = position;
 	}
 
+	public Salary getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Salary salary) {
+		this.salary = salary;
+	}
+
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", employeeId=" + employeeId + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", phone=" + phone + ", email=" + email + ", dateOfBirth=" + dateOfBirth + ", position="
-				+ position + "]";
+		return "Employee{" +
+				"id=" + id +
+				", employeeId='" + employeeId + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", phone='" + phone + '\'' +
+				", email='" + email + '\'' +
+				", dateOfBirth=" + dateOfBirth +
+				", position=" + position +
+				", salary=" + salary.toString() +
+				'}';
 	}
-    
 }
