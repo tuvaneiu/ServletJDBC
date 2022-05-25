@@ -14,6 +14,7 @@
 	<%
 		ArrayList<Employee> employeeList = (ArrayList<Employee>) request.getAttribute("employeeList");
 		for(Employee employee : employeeList){
+			int salaryId = employee.getSalary().getSalaryId();
 		%>
 			<hr>
 			<p>Employee ID: <%=employee.getEmployeeId()%></p>
@@ -25,6 +26,7 @@
 			<br>
 			<a href="DeleteEmployeeServlet?employeeId=<%=employee.getEmployeeId()%>" onclick="return confirmFunction()">Delete</a>
 			<a href="updateEmployee.jsp?employeeId=<%=employee.getEmployeeId()%>">Update</a>
+			<a href="showSalary.jsp?salaryId=<%=salaryId%>">Salary info</a>
 		<%
 		}
 	%>
