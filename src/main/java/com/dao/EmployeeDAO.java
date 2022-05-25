@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.model.Employee;
 import com.model.Position;
+import com.model.Salary;
 
 public class EmployeeDAO {
 	
@@ -45,6 +46,8 @@ public class EmployeeDAO {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
+            SalaryDAO salaryDAO = new SalaryDAO();
+
             while(rs.next())
             {
             	Employee employee = new Employee();
@@ -57,6 +60,7 @@ public class EmployeeDAO {
                 employee.setEmail(rs.getString("email"));
                 employee.setDateOfBirth(rs.getDate("dateOfBirth"));
                 employee.setPosition(Position.valueOf(rs.getObject("position").toString()));
+                employee.setSalary(salaryDAO.getSalaryByEmployeeId(rs.getInt("id")));
                 
                 employeeList.add(employee);
             }
@@ -70,20 +74,22 @@ public class EmployeeDAO {
         
         return employeeList;
     }
-	
-	public Employee getEmployeeById(String employeeId) {
-		Employee employee = new Employee();
-		
-		try
+
+    public Employee getEmployeeById(int employeeId) {
+        Employee employee = new Employee();
+
+        try
         {
-            String sql = "select * from employee where employeeId="+"'"+employeeId+"'";
+            String sql = "select * from employee where id="+"'"+employeeId+"'";
 
             Connection con = getConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
+            SalaryDAO salaryDAO = new SalaryDAO();
+
             while(rs.next())
-            {	
+            {
                 employee.setId(rs.getInt("id"));
                 employee.setEmployeeId(rs.getString("employeeId"));
                 employee.setFirstName(rs.getString("firstName"));
@@ -92,6 +98,7 @@ public class EmployeeDAO {
                 employee.setEmail(rs.getString("email"));
                 employee.setDateOfBirth(rs.getDate("dateOfBirth"));
                 employee.setPosition(Position.valueOf(rs.getObject("position").toString()));
+                employee.setSalary(salaryDAO.getSalaryByEmployeeId(rs.getInt("id")));
             }
 
             st.close();
@@ -100,7 +107,43 @@ public class EmployeeDAO {
         catch(SQLException e){
             System.out.println(e);
         }
-		
+
+        return employee;
+    }
+	
+	public Employee getEmployeeById(String employeeId) {
+		Employee employee = new Employee();
+
+		try
+        {
+            String sql = "select * from employee where employeeId="+"'"+employeeId+"'";
+
+            Connection con = getConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            SalaryDAO salaryDAO = new SalaryDAO();
+
+            while(rs.next())
+            {
+                employee.setId(rs.getInt("id"));
+                employee.setEmployeeId(rs.getString("employeeId"));
+                employee.setFirstName(rs.getString("firstName"));
+                employee.setLastName(rs.getString("lastName"));
+                employee.setPhone(rs.getString("phone"));
+                employee.setEmail(rs.getString("email"));
+                employee.setDateOfBirth(rs.getDate("dateOfBirth"));
+                employee.setPosition(Position.valueOf(rs.getObject("position").toString()));
+                employee.setSalary(salaryDAO.getSalaryByEmployeeId(rs.getInt("id")));
+            }
+
+            st.close();
+            con.close();
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+
 		return employee;
 	}
 	
