@@ -28,7 +28,6 @@ public class UpdateEmployeeServlet extends HttpServlet {
             Position position = Position.valueOf(request.getParameter("position"));
 
             EmployeeDAO employeeDAO = new EmployeeDAO();
-
             Employee employee = new Employee(employee_id, fname, lname, phone, email, dob, position);
 
             employeeDAO.updateEmployee(employee);

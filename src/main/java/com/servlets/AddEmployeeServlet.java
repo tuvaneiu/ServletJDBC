@@ -1,8 +1,10 @@
 package com.servlets;
 
 import com.dao.EmployeeDAO;
+import com.dao.SalaryDAO;
 import com.model.Employee;
 import com.model.Position;
+import com.model.Salary;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -28,6 +30,7 @@ public class AddEmployeeServlet extends HttpServlet {
             Date dob = Date.valueOf(request.getParameter("dob"));
             Position position = Position.valueOf(request.getParameter("position"));
 
+            SalaryDAO salaryDAO = new SalaryDAO();
             EmployeeDAO employeeDAO = new EmployeeDAO();
             Employee checkEmployeeExist = employeeDAO.getEmployeeById(employee_id);
 
@@ -38,10 +41,14 @@ public class AddEmployeeServlet extends HttpServlet {
                 rd.include(request, response);
             }else {
                 Employee employee = new Employee(employee_id, fname, lname, phone, email, dob, position);
-
                 employeeDAO.addEmployee(employee);
 
                 ArrayList<Employee> employeeList;
+                employeeList = employeeDAO.getAllEmployee();
+
+                Salary salary = salaryDAO.getNewSalary(employeeList.get(employeeList.size()-1).getId());
+                salaryDAO.addSalary(salary);
+
                 employeeList = employeeDAO.getAllEmployee();
 
                 request.setAttribute("employeeList", employeeList);

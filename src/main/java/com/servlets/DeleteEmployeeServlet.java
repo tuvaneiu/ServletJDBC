@@ -1,7 +1,9 @@
 package com.servlets;
 
 import com.dao.EmployeeDAO;
+import com.dao.SalaryDAO;
 import com.model.Employee;
+import com.model.Salary;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,7 +22,11 @@ public class DeleteEmployeeServlet extends HttpServlet {
             String id = request.getParameter("employeeId");
 
             EmployeeDAO employeeDAO = new EmployeeDAO();
+            SalaryDAO salaryDAO = new SalaryDAO();
 
+            Employee employee = employeeDAO.getEmployeeById(id);
+
+            salaryDAO.deleteSalaryById(employee.getSalary().getSalaryId());
             employeeDAO.deleteEmployeeById(id);
 
             ArrayList<Employee> employeeList;
